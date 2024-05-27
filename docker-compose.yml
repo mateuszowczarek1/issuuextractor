@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    container_name: issuuextractor
+    restart: always
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html/
+    ports:
+      - 8000:80

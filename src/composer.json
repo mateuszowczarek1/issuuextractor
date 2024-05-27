@@ -1,0 +1,12 @@
+{
+    "name": "matt/src",
+    "authors": [
+        {
+            "name": "Mateusz Owczarek",
+            "email": "mateuszowczarek@onet.eu"
+        }
+    ],
+    "require": {
+        "tecnickcom/tcpdf": "^6.6"
+    }
+}
