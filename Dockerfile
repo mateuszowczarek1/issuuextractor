@@ -2,9 +2,6 @@ FROM php:8.3.7-apache
 
 WORKDIR /var/www/html
 
-COPY src/composer.json /var/www/html/composer.json
-COPY src/composer.lock /var/www/html/composer.lock
-
 RUN apt-get update
 
 # Install necessary dependencies
@@ -22,6 +19,6 @@ RUN chmod -R 755 /var/www/html
 RUN curl -sS https://getcomposer.org/installer | php -- \
 --install-dir=/usr/bin --filename=composer
 
-RUN composer update
+
 
 EXPOSE 8000

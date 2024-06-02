@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php
-require_once "../partials/head.php";
+require_once "../partials/head.html.twig";
 require "curl.php";
 ?>
 
@@ -12,33 +12,33 @@ require "curl.php";
 	</header>
 	<main class="container">
 		<?php
-		$publisher;
-		$linksArray = [];
-		$numberOfPages = $_POST['number-of-pages'];
-		$magazineLink = $_POST['issuu-link'];
-		$extractedLink = getSource($magazineLink);
-		$publisher = (bool) preg_match("/issuu|isu\.pub/i", $extractedLink) !== false
-		? ['name' => 'ISSUU', 'referrer' => 'https://issuu.com']
-		: ['name' => 'CALAMEO', 'referrer' => 'https://calameo.com'];
-		$shortenedLink = dirname($extractedLink, 1) . "/";
-		if ($publisher['name'] === 'ISSUU') {
-			for ($i = 0; $i < $numberOfPages; $i++) {
-				$linksArray[] = $shortenedLink . "page_" . ($i + 1) . ".jpg";
-			}
-		} else {
-			for ($i = 0; $i < $numberOfPages; $i++) {
-				$linksArray[] = $shortenedLink . "p" . ($i + 1) . ".jpg";
-			}
-		}
-		?>
+        $publisher;
+$linksArray = [];
+$numberOfPages = $_POST['number-of-pages'];
+$magazineLink = $_POST['issuu-link'];
+$extractedLink = getSource($magazineLink);
+$publisher = (bool) preg_match("/issuu|isu\.pub/i", $extractedLink) !== false
+? ['name' => 'ISSUU', 'referrer' => 'https://issuu.com']
+: ['name' => 'CALAMEO', 'referrer' => 'https://calameo.com'];
+$shortenedLink = dirname($extractedLink, 1) . "/";
+if ($publisher['name'] === 'ISSUU') {
+    for ($i = 0; $i < $numberOfPages; $i++) {
+        $linksArray[] = $shortenedLink . "page_" . ($i + 1) . ".jpg";
+    }
+} else {
+    for ($i = 0; $i < $numberOfPages; $i++) {
+        $linksArray[] = $shortenedLink . "p" . ($i + 1) . ".jpg";
+    }
+}
+?>
 		<section>
 			<form action="/actions/downloadPdf.php" method="post">
 				<?php
-				foreach ($linksArray as $link) {
-					echo '<input type="hidden" name="links[]" value="' . $link . '">';
-					echo '<input type="hidden" name="publisher" value="' . $publisher['referrer'] . '">';
-				}
-				?>
+        foreach ($linksArray as $link) {
+            echo '<input type="hidden" name="links[]" value="' . $link . '">';
+            echo '<input type="hidden" name="publisher" value="' . $publisher['referrer'] . '">';
+        }
+?>
 				<button type="submit" class="btn btn-outline-success" id="pdf-button">Download magazine as PDF</button>
 			</form>
 		</section>
@@ -51,15 +51,15 @@ require "curl.php";
 			</thead>
 			<tbody>
 				<?php
-				foreach ($linksArray as $index => $link) {
-					echo "
+foreach ($linksArray as $index => $link) {
+    echo "
 					<tr class='table-info'>
 							<th scope='row'>Page " . ($index + 1) . "</th>
 							<td><a class='btn btn-outline-dark' href='$link' target='_blank'>Download page</a></td>
 					</tr>
 					";
-				}
-				?>
+}
+?>
 			</tbody>
 		</table>
 	</main>

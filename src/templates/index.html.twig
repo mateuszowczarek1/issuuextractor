@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "partials/head.html.twig" %}
+</head>
+<body>
+<header class="container">
+    <h1>ISSUU and Calameo PDF Downloader</h1>
+    {% for update in updates %}
+        <div class="alert alert-secondary">
+            <strong>Update {{ update.date }}</strong>
+            <br>
+            {{ update.content }}
+        </div>
+    {% endfor %}
+</header>
+<main class="container">
+    <section>
+        <form data-bitwarden-watching="1" action="actions/submit.php" method="post">
+            <fieldset>
+                <legend>ISSUU Magazine Info</legend>
+                <label for="number-of-pages" class="col-sm-2 col-form-label">Number of pages</label>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" name="number-of-pages" placeholder="100" required>
+                        <small id="number-of-pages-help" class="form-text text-muted">Make sure to check how many pages are in the magazine.</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="issuu-link" class="form-label mt-4">ISSUU Magazine Link</label>
+                    <input type="text" class="form-control" name="issuu-link" aria-describedby="issuu-link-help" placeholder="Paste the ISSUU Link here" required>
+                    <small id="issuu-link-help" class="form-text text-muted">Follow the instruction. You can find it at the bottom of this page.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Generate table of links</button>
+            </fieldset>
+        </form>
+    </section>
+    <section class="mt-4 mb-4">
+        <h2>Instruction:</h2>
+        <div class="alert alert-light">
+            <img src="files/instruction.gif" alt="Instruction GIF" width="20%">
+            <p><strong>Open in fullscreen mode <a href="files/instruction.gif">here.</a></strong></p>
+        </div>
+    </section>
+</main>
+<footer class="container py-3 my-4 border-top">Mateusz Owczarek DRiPI | <a href="mailto:mateuszowczarek@onet.eu">mateuszowczarek@onet.eu</a></footer>
+</body>
+</html>
