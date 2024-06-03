@@ -4,7 +4,7 @@ namespace App;
 
 trait CanPdf
 {
-    public function pdfCreator(): \TCPDF
+    public static function pdfCreator(): \TCPDF
     {
         return new \TCPDF();
     }

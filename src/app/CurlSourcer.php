@@ -12,8 +12,11 @@ trait CurlSourcer
     private static string $url;
 
 
-    private static function setCurl()
+    public static function setCurl(?string $link)
     {
+        if ($link) {
+            static::$url = $link;
+        }
         static::$curl = curl_init();
         curl_setopt(static::$curl, CURLOPT_URL, static::$url);
         curl_setopt(static::$curl, CURLOPT_FOLLOWLOCATION, true);
