@@ -1,0 +1,9 @@
+<section class="my-8 mx-8 bg-white/10 p-4 rounded-xl">
+    {% for update in updates %}
+        <div class="alert alert-secondary">
+            <h3 class="font-semibold text-2xl">Update {{ update.date }}</h3>
+            <br>
+            <p class="text-justify">{{ update.content }}</p>
+        </div>
+    {% endfor %}
+</section>
