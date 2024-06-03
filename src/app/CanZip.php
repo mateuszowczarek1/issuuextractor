@@ -8,26 +8,26 @@ trait CanZip
 {
     use CanPdf;
 
-    public $zip;
+    public static $zip;
 
-    public function zipFiles(string $magazinePath, string $uuid)
+    public static function zipFiles(string $magazinePath, string $uuid)
     {
         $zipPath = $magazinePath . '/' . $uuid . '.zip';
-        $this->zip = new ZipArchive();
-        $this->zip->open($zipPath, ZipArchive::CREATE);
-        $this->zip->addEmptyDir('images');
+        static::$zip = new ZipArchive();
+        static::$zip->open($zipPath, ZipArchive::CREATE);
+        static::$zip->addEmptyDir('images');
         $files = scandir($magazinePath);
-        $pdf = $this->pdfCreator();
+        $pdf = static::pdfCreator();
         foreach ($files as $file) {
             if (is_file($magazinePath . '/' . $file)) {
-                $this->zip->addFile($magazinePath . '/' . $file, 'images/' . $file);
+                static::$zip->addFile($magazinePath . '/' . $file, 'images/' . $file);
                 $pdf->AddPage();
                 $pdf->Image($magazinePath . '/' . $file);
             }
         }
         $pdfContent = $pdf->Output($uuid, 'S');
-        $this->zip->addFromString($uuid . '.pdf', $pdfContent);
-        $this->zip->close();
+        static::$zip->addFromString($uuid . '.pdf', $pdfContent);
+        static::$zip->close();
 
         header('Content-Type: application/zip');
         header('Content-Disposition: attachment; filename="' . $uuid . '.zip');
@@ -39,7 +39,7 @@ trait CanZip
         }
         rmdir($magazinePath);
         unset($files, $uuid, $pdfContent);
-        $this->zip = '';
+        static::$zip = '';
         return;
 
     }

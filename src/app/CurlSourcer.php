@@ -6,37 +6,41 @@ use DOMDocument;
 
 trait CurlSourcer
 {
-    private $curl;
-    private $dom;
+    private static $curl;
+    private static $dom;
+
+    private static string $url;
 
 
-    private function setCurl(?string $url)
+    public static function setCurl(?string $link)
     {
-        if($url) {
-            $this->magazineLink = $url;
+        if ($link) {
+            static::$url = $link;
         }
-        $this->curl = curl_init();
-        curl_setopt($this->curl, CURLOPT_URL, $this->magazineLink);
-        curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36');
-        curl_setopt($this->curl, CURLOPT_REFERER, $this->magazineLink);
-        curl_setopt($this->curl, CURLOPT_TIMEOUT, 10);
-        $response = curl_exec($this->curl);
-        curl_close($this->curl);
+        static::$curl = curl_init();
+        curl_setopt(static::$curl, CURLOPT_URL, static::$url);
+        curl_setopt(static::$curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt(static::$curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt(static::$curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36');
+        curl_setopt(static::$curl, CURLOPT_REFERER, static::$url);
+        curl_setopt(static::$curl, CURLOPT_TIMEOUT, 10);
+        $response = curl_exec(static::$curl);
+        curl_close(static::$curl);
         return $response;
     }
 
-    private function setDom()
+    private static function setDom()
     {
-        $this->dom = new DOMDocument();
-        @$this->dom->loadHTML($this->setCurl(null));
-        return $this->dom->getElementsByTagName('meta');
+        static::$dom = new DOMDocument();
+        @static::$dom->loadHTML(static::setCurl(static::$url));
+        return static::$dom->getElementsByTagName('meta');
     }
 
-    private function getContent(): string
+    private static function getContent(string $url): string
     {
-        $metaTags = $this->setDom();
+        static::$url = $url;
+
+        $metaTags = static::setDom();
         foreach ($metaTags as $meta) {
             if ($meta->getAttribute('property') == 'og:image:secure_url') {
                 return $meta->getAttribute('content');
