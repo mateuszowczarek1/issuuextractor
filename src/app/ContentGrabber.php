@@ -5,8 +5,6 @@ namespace App;
 class ContentGrabber
 {
     use CurlSourcer;
-    use CanPdf;
-    use CanZip;
 
     private static array $linksArray;
     private static int $numberOfPages;

@@ -20,6 +20,8 @@ class MagazineController
 
     public function index(): void
     {
+        // TODO: Error handling here
+
         $linksArray = ContentGrabber::getLinksArray($_POST['issuu-link'], $_POST['number-of-pages']);
 
 
