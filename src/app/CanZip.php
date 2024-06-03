@@ -25,7 +25,7 @@ trait CanZip
                 $pdf->Image($magazinePath . '/' . $file);
             }
         }
-        $pdfContent = $pdf->Output($uuid , 'S');
+        $pdfContent = $pdf->Output($uuid, 'S');
         $this->zip->addFromString($uuid . '.pdf', $pdfContent);
         $this->zip->close();
 
@@ -34,7 +34,7 @@ trait CanZip
         header('Content-Length: ' . filesize($zipPath));
         readfile($zipPath);
         unlink($zipPath);
-        foreach (glob("*/$uuid/*") as $file) {
+        foreach (glob("$magazinePath/*") as $file) {
             unlink($file);
         }
         rmdir($magazinePath);

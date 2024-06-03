@@ -1,35 +1,50 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{% include 'partials/update-section.html.twig' with {'updates': updates} %}
-<main class="p-4 mx-4">
-    <section>
-        <form data-bitwarden-watching="1" action="/magazine" method="post">
-            <fieldset>
-                <legend>ISSUU Magazine Info</legend>
-                <label for="number-of-pages" class="col-sm-2 col-form-label">Number of pages</label>
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" name="number-of-pages" placeholder="100" required>
-                        <small id="number-of-pages-help" class="form-text text-muted">Make sure to check how many pages are in the magazine.</small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="issuu-link" class="form-label mt-4">ISSUU Magazine Link</label>
-                    <input type="text" class="form-control" name="issuu-link" aria-describedby="issuu-link-help" placeholder="Paste the ISSUU Link here" required>
-                    <small id="issuu-link-help" class="form-text text-muted">Follow the instruction. You can find it at the bottom of this page.</small>
-                </div>
-                <button type="submit" class="btn btn-primary">Generate table of links</button>
-            </fieldset>
-        </form>
-    </section>
-    <section class="mt-4 mb-4">
-        <h2>Instruction:</h2>
-        <div class="alert alert-light">
-            <img src="files/instruction.gif" alt="Instruction GIF" width="20%">
-            <p><strong>Open in fullscreen mode <a href="files/instruction.gif">here.</a></strong></p>
+    {% include 'partials/update-section.html.twig' with {'updates': updates} %}
+    <main class="p-4 mx-4">
+        <div class="my-4 bg-white/5 p-4 mx-2 rounded-xl text-lg space-y-4">
+            <p>Step one: copy the 'share' link of Calameo or ISSUU magazine that you want to download.</p>
+            <p>Step two: remember its total number of pages.</p>
+            <p>Step three: fill the form below with correct data.</p>
+            <p>Step four: click the button "Generate table of links.</p>
+            <p>Step five: on the next page view the specific pages or click download magazine.</p>
+            <p>Step six*: if you clicked on download magazine, don't close the tab. The zip file will be sent to you as
+                soon as possible.</p>
         </div>
-    </section>
-</main>
+        <section>
+            <div>
+                <form action="/magazine" method="post" class="text-lg">
+                    <p class="font-semibold mb-4">ISSUU Magazine Info</p>
+                    <div class="space-y-4">
+                        <p>
+                            <label for="number-of-pages" class="col-sm-2 col-form-label">Number of pages:</label>
+                        </p>
+                        <p>
+                            <input type="number" class="p-4 rounded-xl text-black" id="number-of-pages" name="number-of-pages" placeholder="100"
+                                   required>
+                        </p>
+                        <p>
+                            <small id="number-of-pages-help" >Make sure to check how many
+                                pages
+                                are in the magazine.</small>
+                        </p>
+                    </div>
+                    <div class="space-y-4 mt-4">
+                        <p>
+                        <label for="issuu-link" class="form-label mt-4">ISSUU / Calameo Magazine Link</label>
+                        </p>
+                        <p>
+                        <input type="text" class="p-4 rounded-xl text-black" id="issuu-link" name="issuu-link" aria-describedby="issuu-link-help"
+                               placeholder="Paste the ISSUU Link here" required>
+                        </p>
+                        <p>
+                            <button type="submit" class="p-4 font-semibold bg-white/10 hover:bg-white/20 transition-colors duration:300 mt-4 rounded-xl">Generate table of links</button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
 
 {% endblock %}

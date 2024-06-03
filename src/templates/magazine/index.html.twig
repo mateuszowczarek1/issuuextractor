@@ -2,18 +2,25 @@
 
 {% block body %}
 
-    <main class="p-4 mx-4">
-        <ul>
-            {% for link in linksArray %}
-                <li><a href="{{ link }}">Page: {{ loop.index }}</a></li>
-            {% endfor %}
-        </ul>
+    <main class="p-4 mx-4 flex flex-col justify-center items-center">
+        <div>
+            <ul>
+                {% for link in linksArray %}
+                    <li class="font-semibold p-2 bg-white/10 cursor-pointer my-2"><a href="{{ link }}">Click to open page: {{ loop.index }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
 
-        <p>Number of pages: {{ linksArray|length }}</p>
-    </main>
-
+<div class="mt-4 text-lg">
+    <p>Number of pages declared: {{ linksArray|length }}</p>
+</div>
+<div>
     <form action="/magazine/download" method="post">
         <input type="hidden" name="linksArray" value="{{ linksArray|json_encode }}">
-        <button>Download magazine</button>
+        <button class="p-2 bg-white/10 hover:bg-white/20 transition-colors duration-300 rounded-xl mt-8">Download magazine</button>
     </form>
+</div>
+
+    </main>
+
 {% endblock %}

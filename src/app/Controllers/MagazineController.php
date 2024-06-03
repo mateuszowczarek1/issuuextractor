@@ -52,6 +52,8 @@ class MagazineController
 
     public function store()
     {
+
+
         $this->linksArray = json_decode($_POST['linksArray']);
         $allowedExtensions = ['jpg', 'gif', 'png'];
         $uuid = uniqid();
@@ -76,8 +78,6 @@ class MagazineController
         shell_exec($command);
 
 
-
         $this->zipFiles($magazinePath, $uuid);
-
     }
 }

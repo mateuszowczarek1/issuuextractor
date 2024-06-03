@@ -12,8 +12,7 @@ trait CurlSourcer
 
     private function setCurl(?string $url)
     {
-        if($url)
-        {
+        if($url) {
             $this->magazineLink = $url;
         }
         $this->curl = curl_init();

@@ -8,12 +8,12 @@ use Twig\Loader\FilesystemLoader;
 
 class HomeController
 {
-use InitializesTwig;
+    use InitializesTwig;
 
-public function __construct()
-{
-    $this->initializeTwig();
-}
+    public function __construct()
+    {
+        $this->initializeTwig();
+    }
 
     public function index(): void
     {
