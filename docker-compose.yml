@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    build: 
+    build:
       context: ./
       dockerfile: Dockerfile
     container_name: issuuextractor
@@ -10,7 +10,8 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./src:/var/www/html
+      - ./apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
     ports:
       - 8000:80
     entrypoint: >
-      /bin/sh -c "composer install && apache2-foreground"
+      /bin/sh -c "composer install && a2enmod rewrite && a2ensite 000-default && apache2-foreground"
