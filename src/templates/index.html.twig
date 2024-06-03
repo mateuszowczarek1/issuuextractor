@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    {% include "partials/head.html.twig" %}
-</head>
-<body>
-<header class="container">
-    <h1>ISSUU and Calameo PDF Downloader</h1>
-    {% for update in updates %}
-        <div class="alert alert-secondary">
-            <strong>Update {{ update.date }}</strong>
-            <br>
-            {{ update.content }}
-        </div>
-    {% endfor %}
-</header>
-<main class="container">
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% include 'partials/update-section.html.twig' with {'updates': updates} %}
+<main class="p-4 mx-4">
     <section>
-        <form data-bitwarden-watching="1" action="actions/submit.php" method="post">
+        <form data-bitwarden-watching="1" action="/magazine" method="post">
             <fieldset>
                 <legend>ISSUU Magazine Info</legend>
                 <label for="number-of-pages" class="col-sm-2 col-form-label">Number of pages</label>
@@ -43,6 +31,5 @@
         </div>
     </section>
 </main>
-<footer class="container py-3 my-4 border-top">Mateusz Owczarek DRiPI | <a href="mailto:mateuszowczarek@onet.eu">mateuszowczarek@onet.eu</a></footer>
-</body>
-</html>
+
+{% endblock %}

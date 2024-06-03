@@ -2,17 +2,15 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
+ini_set('memory_limit', '1024M');
+set_time_limit(500);
 
-$loader = new FilesystemLoader(__DIR__ . '/templates');
-$twig = new Environment($loader);
 
-echo $twig->render('index.html.twig', [
-    'updates' => [
-        [
-            'date' => '07.01.24',
-            'content' => 'Cześć 🐕 Od teraz można pobierać tym również czasopisma z Calameo. Wklejamy link i wpisujemy liczbę stron. Generujemy tabelę z linkami i pobieramy pdf. M.'
-        ]
-    ]
-]);
+$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$requestMethod = $_SERVER['REQUEST_METHOD'];
+
+$router = require_once __DIR__ . '/../routes/web.php';
+
+$response = $router->dispatch($requestUri, $requestMethod);
+
+echo $response;

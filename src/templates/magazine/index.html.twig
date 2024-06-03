@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <main class="p-4 mx-4">
+        <ul>
+            {% for link in linksArray %}
+                <li><a href="{{ link }}">Page: {{ loop.index }}</a></li>
+            {% endfor %}
+        </ul>
+
+        <p>Number of pages: {{ linksArray|length }}</p>
+    </main>
+
+    <form action="/magazine/download" method="post">
+        <input type="hidden" name="linksArray" value="{{ linksArray|json_encode }}">
+        <button>Download magazine</button>
+    </form>
+{% endblock %}
